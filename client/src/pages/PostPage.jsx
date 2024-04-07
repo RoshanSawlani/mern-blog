@@ -37,13 +37,14 @@ export default function PostPage() {
 
     useEffect(()=>{
         try {
-            const fetchRecentPost = async() =>{
+            const fetchRecentPosts = async() =>{
                 const res = await fetch(`/api/post/getposts?limit=3`)
                 const data = await res.json()
                 if(res.ok){
                     setRecentPosts(data.posts)
                 }
             }
+            fetchRecentPosts();
         } catch (error) {
             console.log(error.message)
         }
@@ -68,7 +69,7 @@ export default function PostPage() {
             <div className="max-w-4xl mx-auto w-full">
                 <CallToAction/>
             </div>
-            <CommentSection postId={post._id}/>
+            <CommentSection postId={post && post._id}/>
             <div className="flex flex-col justify-center items-center mb-5">
                 <h1 className='text-xl mt-5'>Recent Articles</h1>
                 <div className="flex flex-wrap gap-5 mt-5 justify-center">
